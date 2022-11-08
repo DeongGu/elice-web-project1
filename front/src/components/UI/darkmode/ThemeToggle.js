@@ -1,35 +1,23 @@
 import styled from 'styled-components';
-import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { UserStateContext } from '../../App';
-import { useNavigate } from 'react-router-dom';
-import '../../../src/styles/index.css';
-import { useTheme } from '../darkmode/themeProvider';
+import React, { useContext } from 'react';
+import { UserStateContext } from '../../../App';
+import '../../../../src/styles/index.css';
+import { useTheme } from '../../stores/themeProvider';
 function ThemeToggle({ toggle, mode }) {
-  const [watchs, setWatchs] = useState();
-  const navigate = useNavigate();
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
-  let origins = localStorage.getItem('recentlyView1');
   const userState = useContext(UserStateContext);
   let id = null;
+
   if (id) {
     id = userState.user.id;
   }
-
-  const setWatchsFunc = useCallback(() => {
-    setWatchs(JSON.parse(origins));
-  }, []);
-
-  useEffect(() => {
-    setWatchsFunc();
-    setWatchs(JSON.parse(origins));
-  }, [origins]);
 
   return (
     <ToggleWrapper
       onClick={toggle}
       mode={mode}
-      id={theme == 'light' ? 'light' : 'dark'}
+      id={theme === 'light' ? 'light' : 'dark'}
     >
       {mode === 'dark' ? '🌚' : '🌝'}
     </ToggleWrapper>

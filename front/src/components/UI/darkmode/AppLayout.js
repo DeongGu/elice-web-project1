@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { useTheme } from "./themeProvider";
-import { FlexContainer } from "../../styles/styles";
-import ThemeToggle from "./ThemeToggle";
-import { UserStateContext } from "../../App";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { useTheme } from '../../stores/themeProvider';
+import { FlexContainer } from '../../../styles/styles';
+import ThemeToggle from './ThemeToggle';
+import { UserStateContext } from '../../../App';
 
 const AppLayout = ({ children }) => {
   const [ThemeMode, toggleTheme] = useTheme();

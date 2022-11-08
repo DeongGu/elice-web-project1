@@ -4,7 +4,7 @@ import { Container, Col, Row, Form, Button } from 'react-bootstrap';
 
 import * as Api from '../../api';
 import { DispatchContext } from '../../App';
-import { useTheme } from '../darkmode/themeProvider';
+import { useTheme } from '../stores/themeProvider';
 import '../../../src/styles/index.css';
 
 import styles from '../../styles/login-animation.css';
@@ -50,7 +50,9 @@ function LoginForm({ isEditable }) {
       });
       const user = res.data;
       const jwtToken = user.token;
+
       sessionStorage.setItem('userToken', jwtToken);
+
       dispatch({
         type: 'LOGIN_SUCCESS',
         payload: user,
@@ -58,7 +60,6 @@ function LoginForm({ isEditable }) {
 
       navigate('/', { state: { email } });
     } catch (err) {
-      console.log('로그인에 실패하였습니다.\n', err);
       setIsEmpty(true);
     }
   };
@@ -70,7 +71,7 @@ function LoginForm({ isEditable }) {
           <Form
             onSubmit={handleSubmit}
             style={{ border: '0px' }}
-            id={theme == 'light' ? 'blight' : 'bdark'}
+            id={theme === 'light' ? 'blight' : 'bdark'}
           >
             <Form.Group controlId="loginEmail">
               <Form.Label>이메일 주소</Form.Label>
@@ -87,7 +88,6 @@ function LoginForm({ isEditable }) {
                 </Form.Text>
               )}
             </Form.Group>
-
             <Form.Group controlId="loginPassword" className="mt-3">
               <Form.Label>비밀번호</Form.Label>
               <Form.Control
@@ -103,7 +103,6 @@ function LoginForm({ isEditable }) {
                 </Form.Text>
               )}
             </Form.Group>
-
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
                 <Button variant="primary" type="submit" disabled={!isFormValid}>
@@ -111,7 +110,6 @@ function LoginForm({ isEditable }) {
                 </Button>
               </Col>
             </Form.Group>
-
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
                 <Button variant="light" onClick={() => navigate('/register')}>

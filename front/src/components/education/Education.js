@@ -1,11 +1,11 @@
-import { Card } from "react-bootstrap";
-import React, { useState, useContext, useEffect } from "react";
-import EducationForm from "./EducationForm";
-import EducationCard from "./EducationCard";
-import { UserStateContext } from "../../App";
-import * as Api from "../../api";
-import { useTheme } from "../darkmode/themeProvider";
-import "../../../src/styles/index.css";
+import { Card } from 'react-bootstrap';
+import React, { useState, useContext, useEffect } from 'react';
+import EducationForm from './EducationForm';
+import EducationCard from './EducationCard';
+import { UserStateContext } from '../../App';
+import * as Api from '../../api';
+import { useTheme } from '../stores/themeProvider';
+import '../../../src/styles/index.css';
 
 const Education = ({ isEditable, portfolioOwnerId }) => {
   const [isAdding, setIsAdding] = useState(false);
@@ -16,10 +16,12 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
   };
   const [educations, setEducations] = useState([]);
   const userState = useContext(UserStateContext);
-  let educationid = "";
+  let educationid = '';
+
   if (userState?.user) {
     educationid = userState.user.id ? userState.user.id : null;
   }
+
   const confirmAddEducation = (targetEducation) => {
     const resultEducations = [...educations, targetEducation];
     setEducations([...resultEducations]);
@@ -30,14 +32,16 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
   const cancelAddEducation = () => {
     setIsAdding(false);
   };
+
   useEffect(() => {
     Api.get(
-      "educations",
+      'educations',
       portfolioOwnerId ? portfolioOwnerId : educationid
     ).then((res) => setEducations(res.data));
   }, [portfolioOwnerId]);
+
   return (
-    <Card className="mb-2 ms-3 mr-5 " id={theme == "light" ? "light" : "dark"}>
+    <Card className="mb-2 ms-3 mr-5 " id={theme == 'light' ? 'light' : 'dark'}>
       <Card.Body>
         <Card.Title>학력</Card.Title>
         <EducationCard
@@ -67,9 +71,9 @@ const Education = ({ isEditable, portfolioOwnerId }) => {
                   onCancel={cancelAddEducation}
                   education={{
                     id: null,
-                    school: "",
-                    major: "",
-                    position: "재학중",
+                    school: '',
+                    major: '',
+                    position: '재학중',
                   }}
                 />
               )

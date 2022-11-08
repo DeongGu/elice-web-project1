@@ -1,13 +1,13 @@
-import { Card, Button } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
-import { UserStateContext } from "../../App";
-import { useLocation } from "react-router";
-import AwardCard from "./AwardCard";
-import AwardForm from "./AwardForm";
-import * as Api from "../../api";
-import { useTheme } from "../darkmode/themeProvider";
-import "../../../src/styles/index.css";
-import ErrorModalContext from "../stores/ErrorModalContext";
+import { Card, Button } from 'react-bootstrap';
+import { useState, useEffect, useContext } from 'react';
+import { UserStateContext } from '../../App';
+import { useLocation } from 'react-router';
+import AwardCard from './AwardCard';
+import AwardForm from './AwardForm';
+import * as Api from '../../api';
+import { useTheme } from '../stores/themeProvider';
+import '../../../src/styles/index.css';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const Award = ({ isEditable, portfolioOwnerId }) => {
   const userState = useContext(UserStateContext);
@@ -17,7 +17,7 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
   const theme = ThemeMode[0];
   let { state } = useLocation();
 
-  if (state === null || typeof state === "object") {
+  if (state === null || typeof state === 'object') {
     state = id;
   }
 
@@ -31,7 +31,7 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
   async function getData() {
     try {
       const getRes = await Api.get(
-        "awards",
+        'awards',
         portfolioOwnerId ? portfolioOwnerId : id
       );
       const datas = getRes.data;
@@ -47,7 +47,7 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
   }
 
   return (
-    <Card className="mb-2 ms-3 mr-5" id={theme == "light" ? "light" : "dark"}>
+    <Card className="mb-2 ms-3 mr-5" id={theme === 'light' ? 'light' : 'dark'}>
       <Card.Body>
         <Card.Title>수상 이력</Card.Title>
         {arr.map((ele, idx) => {

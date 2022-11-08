@@ -1,13 +1,13 @@
-import CertificateEditForm from "./CertificateEditForm";
-import { Button, Overlay, Tooltip, Card, Col } from "react-bootstrap";
-import * as Api from "../../api";
-import { useState, useContext, useRef, useEffect } from "react";
-import { UserStateContext } from "../../App";
-import displayToggleCss from "../../styles/displayToggle.css";
-import "../../styles/tooltip.css";
-import "../../styles/index.css";
-import { useLocation } from "react-router";
-import ErrorModalContext from "../stores/ErrorModalContext";
+import CertificateEditForm from './CertificateEditForm';
+import { Button, Overlay, Tooltip, Col } from 'react-bootstrap';
+import * as Api from '../../api';
+import { useState, useContext, useRef, useEffect } from 'react';
+import { UserStateContext } from '../../App';
+import displayToggleCss from '../../styles/displayToggle.css';
+import '../../styles/tooltip.css';
+import '../../styles/index.css';
+import { useLocation } from 'react-router';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const CertificateCard = (props) => {
   const userState = useContext(UserStateContext);
@@ -24,7 +24,7 @@ const CertificateCard = (props) => {
   const target = useRef(null);
 
   let { state } = useLocation();
-  if (state === null || typeof state === "object") {
+  if (state === null || typeof state === 'object') {
     state = id;
   }
 
@@ -43,9 +43,9 @@ const CertificateCard = (props) => {
   const confirmDelete = async (e) => {
     try {
       const eleID = e.target.parentNode.parentNode.id;
-      await Api.delete("certificate", eleID);
+      await Api.delete('certificate', eleID);
 
-      const getRes = await Api.get("certificates", id);
+      const getRes = await Api.get('certificates', id);
       const datas = getRes.data;
       let dataArr = [];
 
@@ -82,7 +82,7 @@ const CertificateCard = (props) => {
       ) : (
         <div className="mb-4">
           <div className="align-items-center row" id={arr[idx][0]}>
-            <Col id="widthx" style={{ width: "584px" }}>
+            <Col id="widthx" style={{ width: '584px' }}>
               {arr[idx][1]} <br />
               <span className="text-muted">{arr[idx][2]}</span> <br />
               <span className="text-muted">{arr[idx][3]}</span>

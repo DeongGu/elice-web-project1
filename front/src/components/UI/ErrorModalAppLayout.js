@@ -9,10 +9,10 @@ const AppLayout = ({ children }) => {
   const isLogin = !!userState.user;
 
   return (
-    <>
+    <React.Fragment>
       {isLogin && errorModalContext.modalText && <ErrorModal />}
       {children}
-    </>
+    </React.Fragment>
   );
 };
 

@@ -4,7 +4,7 @@ import { UserStateContext } from '../../App';
 import { useLocation } from 'react-router';
 import CertificateCard from './CertificateCard';
 import CertificateForm from './CertificateForm';
-import { useTheme } from '../darkmode/themeProvider';
+import { useTheme } from '../stores/themeProvider';
 import '../../../src/styles/index.css';
 import * as Api from '../../api';
 import ErrorModalContext from '../stores/ErrorModalContext';
@@ -33,11 +33,16 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
         'certificates',
         portfolioOwnerId ? portfolioOwnerId : id
       );
-      const datas = getRes.data;
+      const certificateData = getRes.data;
       let dataArr = [];
 
-      dataArr = datas.map((ele) => {
-        return [ele.id, ele.title, ele.content, ele.day.slice(0, 10)];
+      dataArr = certificateData.map((certificate) => {
+        return [
+          certificate.id,
+          certificate.title,
+          certificate.content,
+          certificate.day.slice(0, 10),
+        ];
       });
       setArr(dataArr);
     } catch (err) {
@@ -48,13 +53,13 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
   }
 
   return (
-    <Card className="mb-2 ms-3 mr-5" id={theme == 'light' ? 'light' : 'dark'}>
+    <Card className="mb-2 ms-3 mr-5" id={theme === 'light' ? 'light' : 'dark'}>
       <Card.Body>
         <Card.Title>자격증</Card.Title>
-        {arr.map((ele, idx) => {
+        {arr.map((certificate, idx) => {
           return (
             <CertificateCard
-              key={ele}
+              key={certificate}
               arr={arr}
               idx={idx}
               setArr={setArr}

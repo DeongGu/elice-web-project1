@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import UserEditForm from './UserEditForm';
 import UserCard from './UserCard';
-import {UserStateContext} from "../../App";
+import { UserStateContext } from '../../App';
 import * as Api from '../../api';
 
 function User({ portfolioOwnerId, isEditable, setIsEditable }) {
@@ -14,22 +14,35 @@ function User({ portfolioOwnerId, isEditable, setIsEditable }) {
   }, [portfolioOwnerId]);
 
   useEffect(() => {
-    if(user !== null && me !== null) {
-      if(user.id !== me.user.id) {
-        const recentlyViewUserPortfolioObj = {name: user.name, id: user.id};
-        let recentlyViewUserPortfolio = JSON.parse(localStorage.getItem(me.user.id) ?? '[]');
-        recentlyViewUserPortfolio = recentlyViewUserPortfolio.filter(targetObj => targetObj.name !== recentlyViewUserPortfolioObj.name && targetObj.id !== recentlyViewUserPortfolioObj.id);
+    if (user !== null && me !== null) {
+      if (user.id !== me.user.id) {
+        const recentlyViewUserPortfolioObj = { name: user.name, id: user.id };
+        let recentlyViewUserPortfolio = JSON.parse(
+          localStorage.getItem(me.user.id) ?? '[]'
+        );
+
+        recentlyViewUserPortfolio = recentlyViewUserPortfolio.filter(
+          (targetObj) =>
+            targetObj.name !== recentlyViewUserPortfolioObj.name &&
+            targetObj.id !== recentlyViewUserPortfolioObj.id
+        );
+
         recentlyViewUserPortfolio.unshift(recentlyViewUserPortfolioObj);
-        if(recentlyViewUserPortfolio.length > 5) {
+
+        if (recentlyViewUserPortfolio.length > 5) {
           recentlyViewUserPortfolio.pop();
         }
-        localStorage.setItem(me.user.id, JSON.stringify(recentlyViewUserPortfolio));
+
+        localStorage.setItem(
+          me.user.id,
+          JSON.stringify(recentlyViewUserPortfolio)
+        );
       }
     }
   }, [user]);
 
   return (
-    <>
+    <React.Fragment>
       {isEditing ? (
         <UserEditForm
           user={user}
@@ -45,7 +58,7 @@ function User({ portfolioOwnerId, isEditable, setIsEditable }) {
           portfolioOwnerId={portfolioOwnerId}
         />
       )}
-    </>
+    </React.Fragment>
   );
 }
 

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'react-bootstrap';
-import { useTheme } from '../darkmode/themeProvider';
+import { useTheme } from '../stores/themeProvider';
 
 const Anchor = () => {
   const ThemeMode = useTheme();
@@ -15,7 +14,7 @@ const Anchor = () => {
 
   return (
     <ToggleWrapper
-      id={theme == 'light' ? 'light' : 'dark'}
+      id={theme === 'light' ? 'light' : 'dark'}
       onClick={goToTheTop}
     >
       ⬆️

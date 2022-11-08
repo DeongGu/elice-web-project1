@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import * as Api from '../../api';
 
 import { Button, Overlay, Tooltip } from 'react-bootstrap';
-import AuthContext from '../project/stores/AuthContext';
+import ErrorModalContext from '../stores/ErrorModalContext';
 import { UserStateContext } from '../../App';
 
 const LikeButton = (props) => {
@@ -12,7 +12,7 @@ const LikeButton = (props) => {
   const [tooltipText, setToolTipText] = useState('');
   const [checkedButton, setCheckedButton] = useState(false);
 
-  const context = useContext(AuthContext);
+  const context = useContext(ErrorModalContext);
   const userState = useContext(UserStateContext);
 
   let tempCount = props.user?.likes.length ? props.user.likes.length : null;

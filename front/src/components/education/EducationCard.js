@@ -1,12 +1,12 @@
-import React, { useState, useContext } from "react";
-import "../../../src/styles/index.css";
-import EducationForm from "./EducationForm";
-import * as Api from "../../api";
-import { Col, Button } from "react-bootstrap";
-import DeleteButton from "./DeleteButton";
-import { useLocation } from "react-router";
-import { UserStateContext } from "../../App";
-import ErrorModalContext from "../stores/ErrorModalContext";
+import React, { useState, useContext } from 'react';
+import '../../../src/styles/index.css';
+import EducationForm from './EducationForm';
+import * as Api from '../../api';
+import { Col, Button } from 'react-bootstrap';
+import DeleteButton from './DeleteButton';
+import { useLocation } from 'react-router';
+import { UserStateContext } from '../../App';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 function EducationCard({ educations, setEducations, isEditable }) {
   const errorModalContext = useContext(ErrorModalContext);
@@ -17,9 +17,11 @@ function EducationCard({ educations, setEducations, isEditable }) {
   const userState = useContext(UserStateContext);
   const id = userState?.user?.id;
   let { state } = useLocation();
-  if (state === null || typeof state === "object") {
+
+  if (state === null || typeof state === 'object') {
     state = id;
   }
+
   const toggleEditEducationForm = (id) => {
     if (targetId === id && isEditing) {
       setTargetId(null);
@@ -80,7 +82,7 @@ function EducationCard({ educations, setEducations, isEditable }) {
                     <div
                       className="text-muted"
                       id="widthx"
-                      style={{ width: "584px" }}
+                      style={{ width: '584px' }}
                     >
                       {education.major} ({education.position})
                     </div>

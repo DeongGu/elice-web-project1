@@ -1,14 +1,11 @@
 import React, { useState, useContext } from 'react';
-import * as Api from '../../../api';
+import * as Api from '../../api';
 
-import AuthContext from '../stores/AuthContext';
-import ErrorModalContext from '../../stores/ErrorModalContext';
-import CheckButton from './CheckButton';
-import { Form, Col, FloatingLabel } from 'react-bootstrap';
-import styles from '../../../styles/anime.css';
+import ErrorModalContext from '../stores/ErrorModalContext';
+import { Form, Col, Button, FloatingLabel } from 'react-bootstrap';
+import styles from '../../styles/anime.css';
 
-const AddForm = (props) => {
-  const context = useContext(AuthContext);
+const ProjectForm = (props) => {
   const errorModalContext = useContext(ErrorModalContext);
   const [dataValues, setDataValues] = useState({});
   const [isEmpty, setIsEmpty] = useState(false);
@@ -68,10 +65,6 @@ const AddForm = (props) => {
     }
   };
 
-  const setIsAddingFalse = () => {
-    context.setIsAdding(false);
-  };
-
   return (
     <Form className="toggleTarget">
       <Form.Group>
@@ -90,7 +83,6 @@ const AddForm = (props) => {
             type="text"
             placeholder="프로젝트 제목"
             onChange={setProjectValues}
-            value={dataValues.title}
             maxLength="20"
           />
         </FloatingLabel>
@@ -106,7 +98,6 @@ const AddForm = (props) => {
             type="text"
             placeholder="상세 내역"
             onChange={setProjectValues}
-            value={dataValues.content}
             maxLength="400"
           />
         </FloatingLabel>
@@ -116,26 +107,25 @@ const AddForm = (props) => {
           <Form.Control
             type="date"
             name="startDay"
-            value={dataValues.startDay}
             onChange={setProjectValues}
           />
         </Col>
         <Col className="col-auto">
-          <Form.Control
-            type="date"
-            name="endDay"
-            onChange={setProjectValues}
-            value={dataValues.endDay}
-          />
+          <Form.Control type="date" name="endDay" onChange={setProjectValues} />
         </Col>
       </Form.Group>
-      <CheckButton
-        className={'mt-3 text-center'}
-        submitHandler={callPost}
-        cancelHandler={setIsAddingFalse}
-      />
+      <Form.Group className={`mt-3 text-center mb-3`}>
+        <Col>
+          <Button variant="primary" className="me-3" onClick={callPost}>
+            확인
+          </Button>
+          <Button variant="secondary" onClick={() => props.setIsAdding(false)}>
+            취소
+          </Button>
+        </Col>
+      </Form.Group>
     </Form>
   );
 };
 
-export default AddForm;
+export default ProjectForm;

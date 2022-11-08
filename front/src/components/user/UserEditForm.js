@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Button, Form, Card, Col, Row } from "react-bootstrap";
-import * as Api from "../../api";
-import styles from "../../styles/anime.css";
-import "../../../src/styles/index.css";
-import { useTheme } from "../darkmode/themeProvider";
+import React, { useState } from 'react';
+import { Button, Form, Card, Col, Row } from 'react-bootstrap';
+import * as Api from '../../api';
+import styles from '../../styles/anime.css';
+import '../../../src/styles/index.css';
+import { useTheme } from '../stores/themeProvider';
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   const [name, setName] = useState(user?.name);
@@ -13,49 +13,55 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const ThemeMode = useTheme();
   const theme = ThemeMode[0];
   let formData = new FormData();
-  const backendPortNumber = "5001";
+  const backendPortNumber = '5001';
   const serverUrl =
-    "http://" + window.location.hostname + ":" + backendPortNumber + "/";
+    'http://' + window.location.hostname + ':' + backendPortNumber + '/';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name === "" || description === "") {
+
+    if (name === '' || description === '') {
       setIsEmpty(false);
       return;
     } else {
       setIsEmpty(true);
     }
+
     const res = await Api.put(`users/${user.id}`, {
       name,
       email,
       description,
     });
+
     const updatedUser = res.data;
+
     setUser(updatedUser);
-    let value = "";
+
+    let value = '';
+
     for (value of formData.values()) {
     }
-    console.log(value.length);
-    if (value.length != 0) {
-      const response = await fetch(serverUrl + `user/images/profile`, {
-        method: "POST",
+
+    if (value.length !== 0) {
+      await fetch(serverUrl + `user/images/profile`, {
+        method: 'POST',
         body: formData,
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          Authorization: `Bearer ${sessionStorage.getItem('userToken')}`,
         },
       });
-    } else {
-      console.log("사진을 첨부 안하셨습니다");
     }
+
     setIsEditing(false);
   };
 
   const onImgChange = async (e) => {
     let file = e.target.files[0];
-    formData.append("file", file);
+    formData.append('file', file);
   };
 
   return (
-    <Card className="mb-2" id={theme == "light" ? "light" : "dark"}>
+    <Card className="mb-2" id={theme === 'light' ? 'light' : 'dark'}>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
           {!isEmpty && (
@@ -72,7 +78,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               maxLength="10"
             />
           </Form.Group>
-
           <Form.Group controlId="userEditEmail" className="mb-3">
             <Form.Control
               type="email"
@@ -82,7 +87,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
-
           <Form.Group controlId="userEditDescription" className="mb-3">
             <Form.Control
               type="text"
@@ -97,12 +101,10 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               type="file"
               placeholder="선택된 파일 없음"
               id="formFile"
-              // value={}
               maxLength="100"
               onChange={onImgChange}
             />
           </Form.Group>
-
           <Form.Group as={Row} className="mt-3 text-center">
             <Col sm={{ span: 20 }}>
               <Button variant="primary" type="submit" className="me-3">

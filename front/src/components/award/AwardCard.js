@@ -1,13 +1,13 @@
-import AwardEditForm from "./AwardEditForm";
-import { Button, Overlay, Tooltip, Card, Col } from "react-bootstrap";
-import * as Api from "../../api";
-import { useState, useContext, useRef, useEffect } from "react";
-import { UserStateContext } from "../../App";
-import displayToggleCss from "../../styles/displayToggle.css";
-import "../../styles/tooltip.css";
-import "../../styles/index.css";
-import { useLocation } from "react-router";
-import ErrorModalContext from "../stores/ErrorModalContext";
+import AwardEditForm from './AwardEditForm';
+import { Button, Overlay, Tooltip, Col } from 'react-bootstrap';
+import * as Api from '../../api';
+import { useState, useContext, useRef, useEffect } from 'react';
+import { UserStateContext } from '../../App';
+import displayToggleCss from '../../styles/displayToggle.css';
+import '../../styles/tooltip.css';
+import '../../styles/index.css';
+import { useLocation } from 'react-router';
+import ErrorModalContext from '../stores/ErrorModalContext';
 
 const AwardCard = (props) => {
   const userState = useContext(UserStateContext);
@@ -26,7 +26,7 @@ const AwardCard = (props) => {
 
   let { state } = useLocation();
 
-  if (state === null || typeof state === "object") {
+  if (state === null || typeof state === 'object') {
     state = id;
   }
 
@@ -47,9 +47,9 @@ const AwardCard = (props) => {
     try {
       const eleID = e.target.parentNode.parentNode.id;
 
-      await Api.delete("award", eleID);
+      await Api.delete('award', eleID);
 
-      const getRes = await Api.get("awards", id);
+      const getRes = await Api.get('awards', id);
       const datas = getRes.data;
       let dataArr = [];
 
@@ -83,7 +83,7 @@ const AwardCard = (props) => {
       ) : (
         <div className="mb-4">
           <div className="align-items-center row" id={arr[idx][0]}>
-            <Col id="widthx" style={{ width: "584px" }}>
+            <Col id="widthx" style={{ width: '584px' }}>
               <span> {arr[idx][1]}</span> <br />
               <span className="text-muted"> {arr[idx][2]}</span>
             </Col>

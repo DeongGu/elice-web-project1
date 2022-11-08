@@ -16,6 +16,7 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
   const id = userState?.user?.id;
 
   const [isEmpty, setIsEmpty] = useState(true);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTargetEducation({
@@ -23,17 +24,21 @@ const EducationForm = ({ onConfirm, onCancel, education, byEditbtn }) => {
       [name]: value,
     });
   };
+
   const editedValues = {
     ...targetEducation,
   };
+
   const handleConfirm = async (e) => {
     e.preventDefault();
+
     if (targetEducation.school === '' || targetEducation.major === '') {
       setIsEmpty(false);
       return;
     } else {
       setIsEmpty(true);
     }
+
     try {
       if (!byEditbtn) {
         onConfirm({ ...targetEducation });

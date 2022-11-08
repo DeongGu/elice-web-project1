@@ -1,5 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
-import * as Api from '../../api';
+import React, { useState, useRef, useEffect } from 'react';
 import { Col, Button, Overlay, Tooltip } from 'react-bootstrap';
 import '../../styles/tooltip.css';
 

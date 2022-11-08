@@ -1,17 +1,12 @@
 import React, { useState, useContext } from 'react';
-import * as Api from '../../../api';
+import * as Api from '../../api';
 
-import AuthContext from '../stores/AuthContext';
-import ErrorModalContext from '../../stores/ErrorModalContext';
-import CheckButton from './CheckButton';
-import { Form, Col, FloatingLabel } from 'react-bootstrap';
-import styles from '../../../styles/anime.css';
+import ErrorModalContext from '../stores/ErrorModalContext';
+import { Form, Col, FloatingLabel, Button } from 'react-bootstrap';
 
-const EditForm = (props) => {
-  const context = useContext(AuthContext);
+const ProjectEditForm = (props) => {
   const errorModalContext = useContext(ErrorModalContext);
   const [dataValues, setDataValues] = useState({});
-  const [isEmpty, setIsEmpty] = useState(false);
   const DATA_ENDPOINT = 'project';
 
   const setProjectValues = (e) => {
@@ -61,7 +56,7 @@ const EditForm = (props) => {
       return;
     }
 
-    context.setEditIdList(context.editIdList.filter((id) => id !== projectId));
+    props.setEditIdList(props.editIdList.filter((id) => id !== projectId));
 
     try {
       await Api.patch(DATA_ENDPOINT, projectId, editedValues);
@@ -74,19 +69,14 @@ const EditForm = (props) => {
   };
 
   const deleteIdFromIdList = () => {
-    context.setEditIdList(
-      context.editIdList.filter((id) => id !== props.project.id)
+    props.setEditIdList(
+      props.editIdList.filter((id) => id !== props.project.id)
     );
   };
 
   return (
     <Form className="toggleTarget">
       <Form.Group>
-        {isEmpty && (
-          <div className="text-danger text-center" style={{ styles }}>
-            <span id="anime">빈 값이 있습니다.</span>
-          </div>
-        )}
         <FloatingLabel
           label="프로젝트 이름"
           className="mt-3 mb-3"
@@ -134,14 +124,22 @@ const EditForm = (props) => {
           />
         </Col>
       </Form.Group>
-      <CheckButton
-        className={'mt-3 text-center'}
-        submitHandler={confirmEdit}
-        cancelHandler={deleteIdFromIdList}
-        project={props.project}
-      />
+      <Form.Group className={`mt-3 text-center mb-3`}>
+        <Col>
+          <Button
+            variant="primary"
+            className="me-3"
+            onClick={() => confirmEdit(props.project.id)}
+          >
+            확인
+          </Button>
+          <Button variant="secondary" onClick={deleteIdFromIdList}>
+            취소
+          </Button>
+        </Col>
+      </Form.Group>
     </Form>
   );
 };
 
-export default EditForm;
+export default ProjectEditForm;

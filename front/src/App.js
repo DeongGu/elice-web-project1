@@ -2,14 +2,14 @@ import React, { useState, useEffect, useReducer, createContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as Api from './api';
 import { loginReducer } from './reducer';
-import AppLayout from './components/darkmode/AppLayout';
+import AppLayout from './components/UI/darkmode/AppLayout';
 import Header from './components/Header';
 import LoginForm from './components/user/LoginForm';
 import Network from './components/user/Network';
 import RegisterForm from './components/user/RegisterForm';
 import Portfolio from './components/Portfolio';
-import { ThemeProvider } from './components/darkmode/themeProvider';
-import { GlobalStyle } from './components/darkmode/GlobalStyles';
+import { ThemeProvider } from './components/stores/themeProvider';
+import { GlobalStyle } from './components/UI/darkmode/GlobalStyles';
 import './styles/index.css';
 
 import { ErrorModalContextProvider } from './components/stores/ErrorModalContext';
